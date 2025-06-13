@@ -24,20 +24,24 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        try{
-            await emaijs.sendForm(
+        try {
+            await emaijs.send(
                 import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
                 import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
-                formRef.current,
+                {
+                    from_name: formData.name,
+                    reply_to: formData.email,
+                    message: formData.message,
+                },
                 import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
-            )
-            setFormData({name: '', email: '', message: '' });
-        }catch(err){
-            console.log(err);
-        }finally {
+            );
+            setFormData({ name: '', email: '', message: '' });
+        } catch (err) {
+            console.error("Email sending failed:", err);
+        } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <section id="contact" className="flex-center section-padding">
