@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import TitleHeader from "../components/TitleHeader.jsx";
 import ContactExperience from "../components/ContactExperience.jsx";
-import emailjs from 'emailjs-com';
+import emailjs from "@emailjs/browser"
 
 const Contact = () => {
     const formRef = useRef(null);
@@ -24,24 +24,20 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        try {
-            await emailjs.send(
+        try{
+            await emailjs.sendForm(
                 import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
                 import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
-                {
-                    from_name: formData.name,
-                    reply_to: formData.email,
-                    message: formData.message,
-                },
+                formRef.current,
                 import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
-            );
-            setFormData({ name: '', email: '', message: '' });
-        } catch (err) {
-            console.error("Email sending failed:", err);
-        } finally {
+            )
+            setFormData({name: '', email: '', message: '' });
+        }catch(err){
+            console.log(err);
+        }finally {
             setLoading(false);
         }
-    };
+    }
 
     return (
         <section id="contact" className="flex-center section-padding">
