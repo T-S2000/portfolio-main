@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import TitleHeader from "../components/TitleHeader.jsx";
 import ContactExperience from "../components/ContactExperience.jsx";
-import emaijs from "@emailjs/browser"
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
     const formRef = useRef(null);
@@ -25,7 +25,7 @@ const Contact = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await emaijs.send(
+            await emailjs.send(
                 import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
                 import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
                 {
