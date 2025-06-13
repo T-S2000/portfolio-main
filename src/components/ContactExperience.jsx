@@ -2,6 +2,7 @@ import React from 'react';
 import {Canvas} from "@react-three/fiber";
 import {Computer} from "./Models/Computer-optimized.jsx";
 import {OrbitControls} from "@react-three/drei";
+import {Office} from "./Models/Netrunner_office.jsx";
 
 const ContactExperience = () => {
     return (
@@ -19,17 +20,8 @@ const ContactExperience = () => {
                 minPolarAngle={Math.PI / 5}
                 maxPolarAngle={Math.PI / 2}
             />
-            <group scale={0.03} position={[0, -1.5, -2]} castShadow>
-                <Computer />
-            </group>
-
-            <group scale={[1, 1, 1]}>
-                <mesh receiveShadow position={[0, -1.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-                    <planeGeometry
-                        args={[30, 30]}
-                    />
-                    <meshStandardMaterial color="#a46b2d" />
-                </mesh>
+            <group scale={0.35} position={[-1, -1, -1]} castShadow>
+                <Office />
             </group>
         </Canvas>
     );
